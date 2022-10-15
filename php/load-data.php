@@ -1,4 +1,6 @@
 <?php
+// php.ini
+// extension=php_com_dotnet.dll
 
 $ExcelApp = new com("Excel.Application") or die("Unable to instantiate Excel");
 
