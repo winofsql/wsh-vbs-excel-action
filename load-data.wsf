@@ -15,7 +15,7 @@ ExcelApp.DisplayAlerts = False
 Dim CurDir
 CurDir = WshShell.CurrentDirectory
 
-' 開く( utf8のせいみたいで、ソース内に ＆ を使うとエラーになる )
+' 開く( utf8のせいみたいで、ソース内に ＆(これは全角) を使うとエラーになる )
 Set workbook = ExcelApp.Workbooks.Open( CurDir + "\syain.xlsx" )
 ' 最大化
 ExcelApp.ActiveWindow.WindowState = -4137
