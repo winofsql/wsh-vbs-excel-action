@@ -66,7 +66,7 @@ $ExcelApp->ActiveWindow->WindowState = -4137;
 $WshShell->Popup("STOP");
 
 // 保存した事にする
-// $workook->Saved = true;
+$workbook->Saved = true;
 
 // アプリを終了
 $ExcelApp->Quit();
