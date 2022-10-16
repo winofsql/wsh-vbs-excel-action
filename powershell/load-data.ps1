@@ -17,7 +17,7 @@ $ExcelApp.ActiveWindow.WindowState = -4137
 [System.Windows.Forms.MessageBox]::Show("STOP", "タイトル")
 
 # 保存した事にする
-# $workook.Saved = $true
+$workbook.Saved = $true
 
 # アプリを終了
 $ExcelApp.Quit()
