@@ -1,6 +1,7 @@
 <?php
 // php.ini
 // extension=php_com_dotnet.dll
+$WshShell = new com("WScript.Shell");
 
 $ExcelApp = new com("Excel.Application") or die("Unable to instantiate Excel");
 
@@ -13,6 +14,8 @@ $ExcelApp->DisplayAlerts = false;
 $workbook = $ExcelApp->Workbooks->Open( getcwd() ."\\syain.xlsx" );
 // Å‘å‰»
 $ExcelApp->ActiveWindow->WindowState = -4137;
+
+$WshShell->Popup("STOP");
 
 // •Û‘¶‚µ‚½–‚É‚·‚é
 $workook->Saved = true;
