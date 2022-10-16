@@ -18,7 +18,7 @@ $ExcelApp->ActiveWindow->WindowState = -4137;
 $WshShell->Popup("STOP");
 
 // •Û‘¶‚µ‚½–‚É‚·‚é
-$workook->Saved = true;
+// $workook->Saved = true;
 
 // ƒAƒvƒŠ‚ğI—¹
 $ExcelApp->Quit();
