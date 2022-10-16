@@ -4,7 +4,7 @@
 
 ### [PHP com クラス](https://www.php.net/manual/ja/class.com.php)
 
-```wsf
+```vbscript
 <?xml version="1.0" encoding="utf-8" ?>
 <job>
 <script language="vbscript">
