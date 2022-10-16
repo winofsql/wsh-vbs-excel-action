@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=10">
+<meta charset="utf-8">
+<title>Excel Action</title>
+<script language="VBScript">
 
+Dim ExcelApp
+
+Function Excel_Action()
+
+	Dim CurDir : CurDir = location.pathname
+	CurDir = Replace(CurDir, "/", "")
+	Dim aData : aData = Split( CurDir, "\" )
+	CurDir = Replace(CurDir, "\" & aData( Ubound(aData) ), "" )
+
+	Set ExcelApp = CreateObject("Excel.Application")
+
+	Dim workbook
+
+	' 表示する
+	ExcelApp.Visible = True
+	' 警告を出さないようにする
+	ExcelApp.DisplayAlerts = False
+
+	' 開く
+	Set workbook = ExcelApp.Workbooks.Open( CurDir & "\syain.xlsx" )
+	' 最大化
+	ExcelApp.ActiveWindow.WindowState = -4137
+
+	alert("STOP")
+
+	' 保存した事にする
+	workbook.Saved = True
+	
+	' アプリを終了
+	ExcelApp.Quit()
+
+	' オブジェクト初期化
+	Set ExcelApp = Nothing
+	ExcelApp = ""
+
+End Function
+</script>
+</head>
+<body>
+
+<input type="button" value="実行" onclick="Call Excel_Action()" language="VBScript">
+
+</body>
+</html>
