@@ -22,6 +22,9 @@ $workbook.Saved = $true
 # アプリを終了
 $ExcelApp.Quit()
 
+# オブジェクトを解放
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($ExcelApp)
+
 # オブジェクト初期化
 $ExcelApp = $null
 
