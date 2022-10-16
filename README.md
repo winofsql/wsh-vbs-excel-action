@@ -4,7 +4,7 @@
 
 ### [PHP com クラス](https://www.php.net/manual/ja/class.com.php)
 
-### load-data.wsf
+### load-data.wsf (UTF-8)
 ```vbscript
 <?xml version="1.0" encoding="utf-8" ?>
 <job>
@@ -44,7 +44,7 @@ ExcelApp = ""
 </job>
 ```
 
-### load-data.php
+### load-data.php (SHIFT_JIS)
 ```php
 <?php
 // php.ini
@@ -77,7 +77,7 @@ $ExcelApp = null;
 ?>
 ```
 
-### load-data.ps1
+### load-data.ps1 (SHIFT_JIS)
 ```powershell
 # powershell .\load-data.ps1
 
