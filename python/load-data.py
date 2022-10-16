@@ -1,3 +1,6 @@
+# python -m pip install --upgrade pip
+# pip install pywin32
+
 import win32com.client
 import os
 from tkinter import messagebox
