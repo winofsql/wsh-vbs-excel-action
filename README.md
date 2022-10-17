@@ -187,8 +187,6 @@ function Excel_Action() {
 	var aData = CurDir.split( "\\" );
 	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
 	
-//	alert(CurDir);
-
 	ExcelApp = new ActiveXObject("Excel.Application");
 
 	var workbook;
@@ -202,8 +200,6 @@ function Excel_Action() {
 	workbook = ExcelApp.Workbooks.Open( CurDir + "\\syain.xlsx" );
 	// 最大化
 	ExcelApp.ActiveWindow.WindowState = -4137;
-
-//	alert("STOP")
 
 	// 保存した事にする
 	workbook.Saved = true;
