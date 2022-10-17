@@ -15,8 +15,6 @@ $workbook = $ExcelApp->Workbooks->Open( getcwd() ."\\syain.xlsx" );
 // Å‘å‰»
 $ExcelApp->ActiveWindow->WindowState = -4137;
 
-$WshShell->Popup("STOP");
-
 // •Û‘¶‚µ‚½–‚É‚·‚é
 $workbook->Saved = true;
 
