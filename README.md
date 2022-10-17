@@ -259,7 +259,7 @@ workbook.Saved = True
 ExcelApp.Quit()
 ```
 
-## C# Dotnet 6.0
+## C# .NET 6.0
 ```cs
 using System;
 using System.Windows.Forms;
