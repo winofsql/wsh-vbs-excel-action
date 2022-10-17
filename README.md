@@ -76,7 +76,7 @@ $WshShell = null;
 
 ### load-data.ps1 (SHIFT_JIS)
 ```powershell
-# powershell .\load-data.ps1
+## powershell .\load-data.ps1
 
 Add-Type -Assembly System.Windows.Forms
 
@@ -101,12 +101,17 @@ $workbook.Saved = $true
 $ExcelApp.Quit()
 
 # オブジェクトを解放
-[System.Runtime.Interopservices.Marshal]::ReleaseComObject($ExcelApp)
+#[System.Runtime.Interopservices.Marshal]::ReleaseComObject($ExcelApp)
+
+# C# ではほぼ完全解放無理なので強制終了させる
+foreach ($p in [System.Diagnostics.Process]::GetProcessesByName("EXCEL")) {
+	if ($p.MainWindowTitle -eq "") {
+		$p.Kill()
+	}
+}
 
 # オブジェクト初期化
 $ExcelApp = $null
-
-
 ```
 
 ### HTA ( vbscript )
