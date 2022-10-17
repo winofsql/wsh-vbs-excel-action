@@ -147,8 +147,6 @@ Function Excel_Action()
 	' 最大化
 	ExcelApp.ActiveWindow.WindowState = -4137
 
-	alert("STOP")
-
 	' 保存した事にする
 	workbook.Saved = True
 	
@@ -189,7 +187,7 @@ function Excel_Action() {
 	var aData = CurDir.split( "\\" );
 	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
 	
-	alert(CurDir);
+//	alert(CurDir);
 
 	ExcelApp = new ActiveXObject("Excel.Application");
 
@@ -205,7 +203,7 @@ function Excel_Action() {
 	// 最大化
 	ExcelApp.ActiveWindow.WindowState = -4137;
 
-	alert("STOP")
+//	alert("STOP")
 
 	// 保存した事にする
 	workbook.Saved = true;
