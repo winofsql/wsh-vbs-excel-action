@@ -61,8 +61,6 @@ $workbook = $ExcelApp->Workbooks->Open( getcwd() ."\\syain.xlsx" );
 // 最大化
 $ExcelApp->ActiveWindow->WindowState = -4137;
 
-$WshShell->Popup("STOP");
-
 // 保存した事にする
 $workbook->Saved = true;
 
@@ -72,6 +70,7 @@ $ExcelApp->Quit();
 // オブジェクト初期化
 $ExcelApp = null;
 
+$WshShell = null;
 ?>
 ```
 
