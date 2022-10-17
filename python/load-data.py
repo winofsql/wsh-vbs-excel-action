@@ -17,8 +17,6 @@ workbook = ExcelApp.Workbooks.Open( curdir + "\\syain.xlsx" )
 
 ExcelApp.ActiveWindow.WindowState = -4137
 
-messagebox.showinfo("タイトル", "STOP")
-
 workbook.Saved = True
 
 ExcelApp.Quit()
