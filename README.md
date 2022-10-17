@@ -28,8 +28,6 @@ Set workbook = ExcelApp.Workbooks.Open( CurDir + "\syain.xlsx" )
 ' 最大化
 ExcelApp.ActiveWindow.WindowState = -4137
 
-MsgBox("STOP")
-
 ' 保存した事にする
 workbook.Saved = True
 
