@@ -4,6 +4,11 @@
 
 ### [PHP com クラス](https://www.php.net/manual/ja/class.com.php)
 
+|  |  |  |  |  |  |  |  | 
+| -- | -- | -- | -- | -- | -- | -- | -- | 
+| [load-data.wsf](#user-content--c) | [Java](#user-content--java) | [PHP](#user-content--php) | [jQuery](#user-content--jquery) | [JavaScript](#user-content--javascript) | [HTML](#user-content--html) | [GAS](#user-content--google-apps-script) | [WSH](https://github.com/winofsql/link-base-pg-language/blob/main/document.md#user-content--wsh--hta) |
+
+
 ### load-data.wsf (UTF-8)
 ```vbscript
 <?xml version="1.0" encoding="utf-8" ?>
