@@ -53,7 +53,8 @@ WshShell.Run("taskkill /F /IM excel.exe")
 </job>
 ```
 
-### load-data.php (SHIFT_JIS) : ※ PHP の終了( Excel の解放 には少々時間がかかります )
+### load-data.php
+(SHIFT_JIS) : ※ PHP の終了( Excel の解放 には少々時間がかかります )
 ```php
 <?php
 // php.ini
