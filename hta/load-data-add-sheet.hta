@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>Excel Action</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+top.moveTo( 300, 150 );
+top.resizeTo( 800, 600 );
+
+var ExcelApp;
+
+function Excel_Action() {
+
+	var CurDir = location.pathname;
+	CurDir = CurDir.replace("/", "");
+	var aData = CurDir.split( "\\" );
+	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
+	
+	ExcelApp = new ActiveXObject("Excel.Application");
+
+	var workbook;
+
+	// 表示する
+	ExcelApp.Visible = true;
+	// 警告を出さないようにする
+	ExcelApp.DisplayAlerts = false;
+
+	// 開く
+	workbook = ExcelApp.Workbooks.Open( CurDir + "\\syain.xlsx" );
+	// 最大化
+	ExcelApp.ActiveWindow.WindowState = -4137;
+
+	// 保存した事にする
+	workbook.Saved = true;
+	
+	workbook.Close();
+	
+	// アプリを終了
+	ExcelQuit();
+
+}
+
+// ****************************
+// JavaScript による
+// Excel の完全終了処理
+// ****************************
+var idTmr = "";
+function ExcelQuit() {
+	ExcelApp.Quit();
+	ExcelApp = null;
+	idTmr = window.setTimeout("Cleanup();",1);
+}
+function Cleanup() {
+	window.clearInterval(idTmr);
+	CollectGarbage();
+}
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">シート追加とシート間セルデータ転送</h5>
+<div id="content" class="m-4">
+
+	<input type="button" value="実行" onclick="Excel_Action()">
+
+</div>
+</body>
+</html>
