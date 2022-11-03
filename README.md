@@ -210,6 +210,8 @@ function Excel_Action() {
 	// 保存した事にする
 	workbook.Saved = true;
 	
+	workbook.Close();
+	
 	// アプリを終了
 	ExcelQuit();
 
