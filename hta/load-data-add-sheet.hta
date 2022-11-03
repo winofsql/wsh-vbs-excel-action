@@ -13,6 +13,14 @@ top.resizeTo( 800, 600 );
 
 var ExcelApp;
 
+$(function(){
+
+	$("#btn").on("click", function(){
+		Excel_Action();
+	});
+
+});
+
 function Excel_Action() {
 
 	var CurDir = location.pathname;
@@ -64,7 +72,7 @@ function Cleanup() {
 <h5 class="alert alert-primary">シート追加とシート間セルデータ転送</h5>
 <div id="content" class="m-4">
 
-	<input type="button" value="実行" onclick="Excel_Action()">
+	<input type="button" value="実行" id="btn">
 
 </div>
 </body>
