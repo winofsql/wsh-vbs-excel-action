@@ -4,9 +4,9 @@
 
 ### [PHP com クラス](https://www.php.net/manual/ja/class.com.php)
 
-|  |  |  |  |  |  |  |  | 
-| -- | -- | -- | -- | -- | -- | -- | -- | 
-| [load-data.wsf](#user-content-load-datawsf-utf-8) | [PHP](#user-content-load-dataphp) | [PowerShell](#user-content-load-dataps1) | [HTA + VBScript](#user-content-hta--vbscript-) | [HTA + JScript](#user-content-hta--javascript-) | [Python](#user-content-python) | [GAS](#user-content--google-apps-script) | [WSH](https://github.com/winofsql/link-base-pg-language/blob/main/document.md#user-content--wsh--hta) |
+|  |  |  |  |  |  |  | 
+| -- | -- | -- | -- | -- | -- | -- | 
+| [load-data.wsf](#user-content-load-datawsf-utf-8) | [PHP](#user-content-load-dataphp) | [PowerShell](#user-content-load-dataps1) | [HTA + VBScript](#user-content-hta--vbscript-) | [HTA + JScript](#user-content-hta--javascript-) | [Python](#user-content-python) | [C#](#user-content-c-net-60) | 
 
 
 ### load-data.wsf (UTF-8)
