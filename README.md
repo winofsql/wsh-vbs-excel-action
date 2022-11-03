@@ -292,16 +292,16 @@ namespace load_data
             // 最大化
             excelApp.ActiveWindow.WindowState = -4137;
 
-            MessageBox.Show("STOP");
-
             // 保存した事にする
             workBook.Saved = true;
 
             // 終了
             excelApp.Quit();
-
+            
             // 解放
             System.Runtime.InteropServices.Marshal.ReleaseComObject (excelApp);
+            
+            MessageBox.Show("STOP");
 
             // C# ではほぼ完全解放無理なので強制終了させる
             foreach (var p in Process.GetProcessesByName("EXCEL"))
