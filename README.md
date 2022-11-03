@@ -31,12 +31,17 @@ ExcelApp.ActiveWindow.WindowState = -4137
 ' 保存した事にする
 workbook.Saved = True
 
+' MsgBox("STOP")
+
 ' アプリを終了
 ExcelApp.Quit()
 
-' オブジェクト初期化( Windows10+Excel365で無くても終了している )
+' オブジェクト初期化( 環境によってはプロセスが残るかもしれない )
 Set ExcelApp = Nothing
 ExcelApp = ""
+
+' 実行中の Excel を全て強制終了  
+WshShell.Run("taskkill /F /IM excel.exe")
 
 </script>
 </job>
