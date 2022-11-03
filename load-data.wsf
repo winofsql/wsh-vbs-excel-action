@@ -23,6 +23,9 @@ ExcelApp.ActiveWindow.WindowState = -4137
 ' 保存した事にする
 workbook.Saved = True
 
+' 閉じる  
+workbook.Close()  
+  
 ' アプリを終了
 ExcelApp.Quit()
 
