@@ -86,7 +86,8 @@ $WshShell = null;
 ?>
 ```
 
-### load-data.ps1 (SHIFT_JIS)
+### load-data.ps1
+(SHIFT_JIS)
 ```powershell
 ## powershell .\load-data.ps1
 
