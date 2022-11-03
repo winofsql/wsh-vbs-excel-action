@@ -32,6 +32,7 @@ ExcelApp.Quit()
 Set ExcelApp = Nothing
 ExcelApp = ""
 
+' 実行中の Excel を全て強制終了  
 WshShell.Run("taskkill /F /IM excel.exe")
 
 </script>
