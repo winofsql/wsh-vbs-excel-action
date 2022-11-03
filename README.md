@@ -6,7 +6,7 @@
 
 |  |  |  |  |  |  |  |  | 
 | -- | -- | -- | -- | -- | -- | -- | -- | 
-| [load-data.wsf](#user-content--c) | [Java](#user-content--java) | [PHP](#user-content--php) | [jQuery](#user-content--jquery) | [JavaScript](#user-content--javascript) | [HTML](#user-content--html) | [GAS](#user-content--google-apps-script) | [WSH](https://github.com/winofsql/link-base-pg-language/blob/main/document.md#user-content--wsh--hta) |
+| [load-data.wsf](#user-content-load-datawsf-utf-8) | [PHP : load-data.php](#user-content--java) | [PHP](#user-content--php) | [jQuery](#user-content--jquery) | [JavaScript](#user-content--javascript) | [HTML](#user-content--html) | [GAS](#user-content--google-apps-script) | [WSH](https://github.com/winofsql/link-base-pg-language/blob/main/document.md#user-content--wsh--hta) |
 
 
 ### load-data.wsf (UTF-8)
