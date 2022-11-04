@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>Excel Action</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+var w = screen.width - 400;
+var h = screen.height - 200;
+top.resizeTo( w, h );
+top.moveTo((screen.width-w)/2, (screen.height-h)/2 );
+
+// ********************************************************
+// ADO オブジェクト
+// 3 : クライアント側カーソル
+// https://docs.microsoft.com/ja-jp/sql/ado/reference/ado-api/cursorlocationenum
+// ********************************************************
+var cn = new ActiveXObject( "ADODB.Connection" );
+cn.CursorLocation = 3;
+var rs = new ActiveXObject( "ADODB.Recordset" );
+
+// ***********************
+// このパスを変更
+// ***********************
+var db_path = "C:\\app\\workspace\\販売管理.accdb";
+// ***********************
+
+// ********************************************************
+// https://www.microsoft.com/ja-jp/download/details.aspx?id=13255 ( ドライバ )
+// 接続文字列 : ODBC用
+// https://docs.microsoft.com/ja-jp/dotnet/api/system.data.odbc.odbcconnection.connectionstring
+// ********************************************************
+var connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
+
+// ***********************
+// 実行 SQL
+// ***********************
+var query = "select * from 社員マスタ";
+
+// ***********************
+// jQuery イベント処理
+// ***********************
+$(function(){
+
+	$("#btn").on("click", function(){
+		ADODB_Action();
+	});
+
+});
+
+
+// ***********************
+// DB から TABLE
+// ***********************
+function ADODB_Action() {
+
+	// ***********************
+	// DB 接続
+	// ***********************
+	cn.open( connection_string );
+
+	// ***********************
+	// レコードセット取得
+	// ***********************
+	rs.open( query, cn );
+
+	var table_body = $("#tbl");
+	var row_unit = $("<tr></tr>");
+
+	// ***********************
+	// タイトル部用、列名取得
+	// ***********************
+	for( loop_idx = 0; loop_idx < rs.fields.count; loop_idx++ ) {
+		$("<th></th>")
+			.text( rs.fields(loop_idx).name )
+			.appendTo( row_unit );
+	}
+	row_unit.appendTo( table_body );
+
+
+	// ***********************
+	// 行取得ループ
+	// ***********************
+	while( !rs.EOF ) {
+
+		// 行オブジェクト
+		row_unit = $("<tr></tr>");
+		
+		// *********************************************
+		// 列オブジェクトを作成して行オブジェクトに追加
+		// *********************************************
+		$("<td></td>")
+			.text( rs.fields("社員コード").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("氏名").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("フリガナ").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("所属").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("性別").value )
+			.appendTo( row_unit );
+			
+		date_work = new Date( rs.fields("作成日").value );
+		date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
+		$("<td></td>")
+			.text( date_string )
+			.appendTo( row_unit );
+
+		date_work = new Date( rs.fields("更新日").value );
+		date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
+		$("<td></td>")
+			.text( date_string )
+			.appendTo( row_unit );
+
+
+		$("<td></td>")
+			.text( rs.fields("給与").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("手当").value )
+			.appendTo( row_unit );
+
+		$("<td></td>")
+			.text( rs.fields("管理者").value )
+			.appendTo( row_unit );
+			
+		date_work = new Date( rs.fields("生年月日").value );
+		date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
+		$("<td></td>")
+			.text( date_string )
+			.appendTo( row_unit );
+
+		// 行オブジェクトを テーブルオブジェクトに追加
+		row_unit.appendTo( table_body );
+
+		// ***********************
+		// 次の行を取得
+		// ***********************
+		rs.MoveNext();
+	}
+	
+	// ***********************
+	// レコードセットを閉じる
+	// ***********************
+	rs.close();
+
+	// ***********************
+	// 接続解除
+	// ***********************
+	cn.close();
+
+	// ***********************
+	// オブジェクトの解放
+	// ***********************
+	cn = null;
+
+	// **************************************
+	// DB 処理( ここまで )
+	// **************************************
+
+}
+
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">シート追加とシート間セルデータ転送</h5>
+<div id="content" class="m-4">
+
+	<input type="button" value="実行" id="btn">
+
+	<table class="table table-hover">
+		<!-- bootstrap 対応の為、tbody に対して処理 -->
+		<tbody id="tbl">
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
