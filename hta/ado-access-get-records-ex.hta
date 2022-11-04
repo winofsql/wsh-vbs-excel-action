@@ -38,7 +38,7 @@ var connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb
 // ***********************
 // 実行 SQL
 // ***********************
-var query = "select 社員コード,氏名,給与 from 社員マスタ";
+var query = "";
 
 // ***********************
 // jQuery イベント処理
@@ -46,6 +46,7 @@ var query = "select 社員コード,氏名,給与 from 社員マスタ";
 $(function(){
 
 	$("#btn").on("click", function(){
+		query = $("#query").val();
 		ADODB_Action();
 	});
 
@@ -99,64 +100,6 @@ function ADODB_Action() {
 		}
 		row_unit.appendTo( table_body );
 
-
-	// 	// *********************************************
-	// 	// 列オブジェクトを作成して行オブジェクトに追加
-	// 	// *********************************************
-	// 	$("<td></td>")
-	// 		.text( rs.fields("社員コード").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("氏名").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("フリガナ").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("所属").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("性別").value )
-	// 		.appendTo( row_unit );
-
-	// 	date_work = new Date( rs.fields("作成日").value );
-	// 	date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
-	// 	$("<td></td>")
-	// 		.text( date_string )
-	// 		.appendTo( row_unit );
-
-	// 	date_work = new Date( rs.fields("更新日").value );
-	// 	date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
-	// 	$("<td></td>")
-	// 		.text( date_string )
-	// 		.appendTo( row_unit );
-
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("給与").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("手当").value )
-	// 		.appendTo( row_unit );
-
-	// 	$("<td></td>")
-	// 		.text( rs.fields("管理者").value )
-	// 		.appendTo( row_unit );
-
-	// 	date_work = new Date( rs.fields("生年月日").value );
-	// 	date_string = date_work.getFullYear() + "/" + (date_work.getMonth()+1) + "/" + date_work.getDate();
-	// 	$("<td></td>")
-	// 		.text( date_string )
-	// 		.appendTo( row_unit );
-
-	// 	// 行オブジェクトを テーブルオブジェクトに追加
-	// 	row_unit.appendTo( table_body );
-
 		// ***********************
 		// 次の行を取得
 		// ***********************
@@ -186,6 +129,8 @@ function ADODB_Action() {
 <div id="content" class="m-4">
 
 	<input type="button" value="実行" id="btn">
+
+	<input type="text" id="query" style="width:70%" class="ms-4" value="select * from 社員マスタ">
 
 	<table class="table table-hover">
 		<!-- bootstrap 対応の為、tbody に対して処理 -->
