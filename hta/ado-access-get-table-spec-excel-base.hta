@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>ADODB Action</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+var w = screen.width - 400;
+var h = screen.height - 200;
+top.resizeTo( w, h );
+top.moveTo((screen.width-w)/2, (screen.height-h)/2 );
+
+// ********************************************************
+// ADO オブジェクト
+// 3 : クライアント側カーソル
+// https://docs.microsoft.com/ja-jp/sql/ado/reference/ado-api/cursorlocationenum
+// ********************************************************
+var cn = new ActiveXObject( "ADODB.Connection" );
+cn.CursorLocation = 3;
+var rs = new ActiveXObject( "ADODB.Recordset" );
+
+var ExcelApp;
+var workbook;
+var worksheet1;
+
+// ***********************
+// このパスを変更
+// ***********************
+var db_path = "C:\\app\\workspace\\販売管理.accdb";
+// ***********************
+
+// ********************************************************
+// https://www.microsoft.com/ja-jp/download/details.aspx?id=13255 ( ドライバ )
+// 接続文字列 : ODBC用
+// https://docs.microsoft.com/ja-jp/dotnet/api/system.data.odbc.odbcconnection.connectionstring
+// https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-configuration-connection-parameters.html
+// ********************************************************
+var connection_string;
+connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
+connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=lightbox;UID=root;PWD=;charset=cp932";
+
+// ***********************
+// 実行 SQL
+// ***********************
+var query = "";
+
+// ***********************
+// jQuery イベント処理
+// ***********************
+$(function(){
+
+	$("#btn").on("click", function(){
+		query = $("#query").val();
+		$("h5").text( query );
+		ADODB_Action();
+	});
+
+});
+
+
+// ***********************
+// DB から TABLE
+// ***********************
+function ADODB_Action() {
+
+	// カレントディレクトリ
+	var CurDir = location.pathname;
+	CurDir = CurDir.replace("/", "");
+	var aData = CurDir.split( "\\" );
+	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
+
+	// Excel のアプリの起動
+	ExcelApp = new ActiveXObject("Excel.Application");
+
+	// Book
+	var workbook;
+
+	// 表示する
+	ExcelApp.Visible = true;
+	// 警告を出さないようにする
+	ExcelApp.DisplayAlerts = false;
+
+	// 開く
+	workbook = ExcelApp.Workbooks.Open( CurDir + "\\テーブル設計.xlsx" );
+	// 最大化
+	ExcelApp.ActiveWindow.WindowState = -4137;
+
+	// =========================================================
+
+	// テーブルデータのクリア
+	$("#tbl").html("");
+
+	// ***********************
+	// DB 接続
+	// ***********************
+	cn.open( connection_string );
+
+	// ***********************
+	// レコードセット取得
+	// ***********************
+	// rs.open( query, cn );
+	rs = cn.OpenSchema( 4, [,,query,] );
+	rs.Sort = "ORDINAL_POSITION";
+	rs.MoveFirst;
+
+	var table_body = $("#tbl");
+	var row_unit = $("<tr></tr>");
+
+	// ***********************
+	// タイトル部用、列名取得
+	// ***********************
+	for( loop_idx = 0; loop_idx < rs.fields.count; loop_idx++ ) {
+		$("<th></th>")
+			.text( rs.fields(loop_idx).name )
+			.appendTo( row_unit );
+
+		setColumnTitle( rs.fields(loop_idx).name, loop_idx );
+	}
+	row_unit.appendTo( table_body );
+
+
+	// ***********************
+	// 行取得ループ
+	// ***********************
+	while( !rs.EOF ) {
+
+		// 行オブジェクト
+		row_unit = $("<tr></tr>");
+
+		for( loop_idx = 0; loop_idx < rs.fields.count; loop_idx++ ) {
+		$("<td></td>")
+			.text( rs.fields(loop_idx).value )
+			.appendTo( row_unit );
+		}
+		row_unit.appendTo( table_body );
+
+		// ***********************
+		// 次の行を取得
+		// ***********************
+		rs.MoveNext();
+	}
+
+	// ***********************
+	// レコードセットを閉じる
+	// ***********************
+	rs.close();
+
+	// ***********************
+	// 接続解除
+	// ***********************
+	cn.close();
+
+	// **************************************
+	// DB 処理( ここまで )
+	// **************************************
+
+	// =========================================================
+
+	workbook.Saved = true;
+
+	workbook.Close();
+
+	// アプリを終了
+	ExcelQuit();
+
+
+}
+
+// **************************************
+// Excel のセルに列名一覧をセット
+// **************************************
+function setColumnTitle( title, idx ) {
+
+}
+
+
+// ****************************
+// JavaScript による
+// Excel の完全終了処理
+// ****************************
+var idTmr = "";
+function ExcelQuit() {
+	ExcelApp.Quit();
+	ExcelApp = null;
+	idTmr = window.setTimeout("Cleanup();",1);
+}
+function Cleanup() {
+	window.clearInterval(idTmr);
+	CollectGarbage();
+}
+
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">社員マスタをテーブル表示</h5>
+<div id="content" class="m-4">
+
+	<input type="text" id="query" class="form-control" value="社員マスタ">
+	<input type="button" value="実行" id="btn" class="mt-4 form-control btn btn-secondary" style="width:200px;">
+
+	<table class="table table-hover mt-4">
+		<!-- bootstrap 対応の為、tbody に対して処理 -->
+		<tbody id="tbl">
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
