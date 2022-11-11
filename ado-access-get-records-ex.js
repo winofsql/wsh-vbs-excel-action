@@ -1,5 +1,5 @@
 // WSH JScript 実行
-//社員マスタテーブル設計書
+// 社員マスタテーブル設計書
 
 Cn = WScript.CreateObject("ADODB.Connection");
 
