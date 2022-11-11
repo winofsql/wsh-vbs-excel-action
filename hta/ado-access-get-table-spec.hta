@@ -33,7 +33,9 @@ var db_path = "C:\\app\\workspace\\販売管理.accdb";
 // 接続文字列 : ODBC用
 // https://docs.microsoft.com/ja-jp/dotnet/api/system.data.odbc.odbcconnection.connectionstring
 // ********************************************************
-var connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
+var connection_string;
+connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
+connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=lightbox;UID=root;PWD=;charset=cp932";
 
 // ***********************
 // 実行 SQL
