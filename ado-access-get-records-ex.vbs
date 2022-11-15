@@ -1,5 +1,6 @@
 
 Set Cn = WScript.CreateObject("ADODB.Connection")
+Cn.CursorLocation = 3
 
 db_path = "C:\app\workspace\販売管理.accdb"
 
@@ -18,6 +19,8 @@ For I = 0  to Rs.Fields.Count - 1
     Wscript.Echo Rs.Fields(I).Name
 Next
 
+Wscript.Echo "--------"
+
 While NOT Rs.EOF
 
     Wscript.Echo Rs.Fields("ORDINAL_POSITION").Value
@@ -30,28 +33,29 @@ Wend
 
 Rs.Close()
 ' --------------------------------------------
+Wscript.Echo "--------"
+' --------------------------------------------
+Set Rs = Cn.OpenSchema( 12, Array(Empty,Empty,Empty,Empty,"社員マスタ") )
+Rs.Sort = "ORDINAL_POSITION"
+Rs.MoveFirst
 
-' ' --------------------------------------------
-' Set Rs = Cn.OpenSchema( 28, Array(Empty,Empty,"社員マスタ") )
-' Rs.Sort = "ORDINAL_POSITION"
-' Rs.MoveFirst
+For I = 0  to Rs.Fields.Count - 1
+    Wscript.Echo Rs.Fields(I).Name
+Next
 
-' For I = 0  to Rs.Fields.Count - 1
-'     Wscript.Echo Rs.Fields(I).Name
-' Next
+Wscript.Echo "--------"
 
-' While NOT Rs.EOF
+While NOT Rs.EOF
+    if Rs.Fields("ORDINAL_POSITION").Value & "" <> "" then
+        Wscript.Echo Rs.Fields("ORDINAL_POSITION").Value
+        Wscript.Echo Rs.Fields("COLUMN_NAME").Value
+    end if
+    Rs.MoveNext()
 
-'     ' Wscript.Echo Rs.Fields("ORDINAL_POSITION").Value
-'     ' Wscript.Echo Rs.Fields("COLUMN_NAME").Value
-'     ' Wscript.Echo Rs.Fields("DATA_TYPE").Value
-'     ' Wscript.Echo Rs.Fields("CHARACTER_MAXIMUM_LENGTH").Value
-'     Rs.MoveNext()
+Wend
 
-' Wend
-
-' Rs.Close()
-' ' --------------------------------------------
+Rs.Close()
+' --------------------------------------------
 
 
 
