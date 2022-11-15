@@ -137,7 +137,7 @@ function ADODB_Action() {
 				.text( rs.fields(loop_idx).value )
 				.appendTo( row_unit );
 
-			// if ( rs.fields(loop_idx).name = "COLUMN_NAME" ) {
+			// if ( rs.fields(loop_idx).name == "COLUMN_NAME" ) {
 				setColumnTitle( rs.fields(loop_idx).value, loop_idx, row );
 			// }
 		}
