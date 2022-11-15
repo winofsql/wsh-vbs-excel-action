@@ -40,7 +40,7 @@ var db_path = "C:\\app\\workspace\\販売管理.accdb";
 // ********************************************************
 var connection_string;
 connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
-connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=lightbox;UID=root;PWD=;charset=cp932";
+// connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=lightbox;UID=root;PWD=;charset=cp932";
 
 // ***********************
 // 実行 SQL
@@ -123,7 +123,7 @@ function ADODB_Action() {
 	}
 	row_unit.appendTo( table_body );
 
-	var row = 1;
+	var row = 6;
 	// ***********************
 	// 行取得ループ
 	// ***********************
@@ -138,7 +138,7 @@ function ADODB_Action() {
 				.appendTo( row_unit );
 
 			if ( rs.fields(loop_idx).name == "COLUMN_NAME" ) {
-				setColumnTitle( rs.fields(loop_idx).value, 1, row );
+				setColumnTitle( rs.fields(loop_idx).value, 2, row );
 			}
 		}
 		row_unit.appendTo( table_body );
