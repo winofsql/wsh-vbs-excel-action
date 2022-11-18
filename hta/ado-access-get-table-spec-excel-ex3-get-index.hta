@@ -200,10 +200,6 @@ function ADODB_Action() {
 				$("<td></td>")
 					.text( rs.fields(loop_idx).value )
 					.appendTo( row_unit );
-
-				if ( rs.fields(loop_idx).name == "COLUMN_NAME" ) {
-					setColumnTitle( rs.fields(loop_idx).value, 2, row );
-				}
 			}
 			row_unit.appendTo( table_body );
 		}
