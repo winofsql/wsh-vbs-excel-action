@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>Download Action</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+top.moveTo( 300, 150 );
+top.resizeTo( 800, 600 );
+
+var DownloadFolder = "C:\\Users\\lightbox\\Downloads\\";
+var http = new ActiveXObject("Msxml2.ServerXMLHTTP");
+var stream = new ActiveXObject("ADODB.Stream");
+
+$(function(){
+
+	$("#btn").on("click", function(){
+		Download_Action();
+	});
+
+});
+
+function Download_Action() {
+
+	var CurDir = location.pathname;
+	CurDir = CurDir.replace("/", "");
+	var aData = CurDir.split( "\\" );
+	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
+
+	// alert( $("#url").val() );
+	try {
+		http.open("GET", $("#url").val(), false );
+		http.send();
+	}
+	catch (error) {
+		WScript.Echo( error.description );
+		return;
+	}
+
+	if ( http.status == 404  ) {
+		WScript.Echo( "URL が正しくありません(404)" );
+		return;
+	}
+
+	// ****************************
+	// バイナリデータ保存用オブジェクト
+	// ****************************
+	stream.Open();
+	stream.Type = 1	// バイナリ
+	// 戻されたバイナリをファイルとしてストリームに書き込み
+	stream.Write( http.responseBody );
+	// ファイルとして保存
+	stream.SaveToFile( DownloadFolder + $("#file_name").val(), 2 );
+	stream.Close
+
+	alert("ダウンロードが終了しました");
+
+}
+
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">インターネットのファイルをダウンロード</h5>
+<div id="content" class="m-4">
+
+	<p><input type="text" id="url" class="form-control"></p>
+	<p><input type="text" id="file_name" class="form-control"></p>
+	<p><input type="button" class="form-control btn btn-secondary" value="実行" id="btn"></p>
+
+</div>
+</body>
+</html>
