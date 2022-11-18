@@ -1,0 +1,83 @@
+<JOB>
+<OBJECT id="WshShell" progid="WScript.Shell" />
+<OBJECT id="Shell" progid="Shell.Application" />
+<OBJECT id="Fso" progid="Scripting.FileSystemObject" />
+<SCRIPT language="VBScript">
+
+Dim site_path
+Dim command
+
+' ***********************************************************
+' 
+' ***********************************************************
+if Wscript.Arguments.Count = 0 then
+	Shell.ShellExecute "wscript.exe", WScript.ScriptFullName & " runas", "", "runas", 1
+	Wscript.Quit
+end if
+
+site_path = WshShell.ExpandEnvironmentStrings("%appdata%") & "\site.xml"
+
+' Wscript.Echo site_path
+
+Set site_file = Fso.CreateTextFile(site_path, True)
+site_file.Write( RegTrim( GetResource("myTextData")) )
+site_file.Close
+
+
+command = "reg add HKLM\SOFTWARE\Policies\Microsoft\Edge /v InternetExplorerIntegrationLevel /t REG_DWORD /d 1 /f"
+Call WshShell.Run( command, 1 )
+
+command = "reg add HKLM\SOFTWARE\Policies\Microsoft\Edge /v InternetExplorerIntegrationSiteList /t REG_SZ /d " & site_path & " /f"
+Call WshShell.Run( command, 1 )
+
+command = "reg add ""HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\localhost"" /v http /t REG_DWORD /d 2 /f"
+Call WshShell.Run( command, 1 )
+
+command = "reg add ""HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\lightbox.sakura.ne.jp"" /v https /t REG_DWORD /d 2 /f"
+Call WshShell.Run( command, 1 )
+
+command = "reg add ""HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"" /v 1201 /t REG_DWORD /d 0 /f"
+Call WshShell.Run( command, 1 )
+
+command = "reg add ""HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"" /v 1406 /t REG_DWORD /d 0 /f"
+Call WshShell.Run( command, 1 )
+
+Wscript.Echo "OK"
+
+' ***********************************************************
+' 
+' ***********************************************************
+Function RegTrim( strValue )
+ 
+Dim regEx, str
+ 
+Set regEx = New RegExp
+regEx.IgnoreCase = True
+regEx.Pattern = "^[　\s]+"
+str = regEx.Replace( strValue, "" )
+regEx.Pattern = "[　\s]+$"
+RegTrim = regEx.Replace( str, "" )
+ 
+End Function
+</SCRIPT>
+
+<COMMENT>
+************************************************************
+ 
+************************************************************
+</COMMENT>
+<RESOURCE id="myTextData">
+<![CDATA[
+<site-list version="1.0">
+  <site url="http://localhost">
+    <compat-mode>Default</compat-mode>
+    <open-in>IE11</open-in>
+  </site>
+  <site url="https://lightbox.sakura.ne.jp">
+    <compat-mode>Default</compat-mode>
+    <open-in>IE11</open-in>
+  </site>
+</site-list>
+]]>
+</RESOURCE>
+</JOB>
