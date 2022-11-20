@@ -80,6 +80,8 @@ function ADODB_Action() {
 	CurDir = CurDir.replace("/", "");
 	var aData = CurDir.split( "\\" );
 	CurDir = CurDir.replace( "\\" + aData[ aData.length - 1 ], "" );
+	// Edge では 直接 Apache の OS 側のパスを設定する
+	// CurDir = "C:\\app\\web22";
 
 	// Excel のアプリの起動
 	ExcelApp = new ActiveXObject("Excel.Application");
