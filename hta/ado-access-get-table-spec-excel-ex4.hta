@@ -48,6 +48,8 @@ var db_path = "C:\\app\\workspace\\販売管理.accdb";
 var connection_string;
 connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=" + db_path + ";";
 // connection_string = "Driver={MySQL ODBC 8.0 Unicode Driver};Server=localhost;Database=lightbox;UID=root;PWD=;charset=cp932";
+// ▼ 32ビット用 ODBC ドライバ( IEモードの Edge ではこれを使う )
+// connection_string = "Provider=MSDASQL;Driver={Microsoft Access Driver (*.mdb)};Dbq=" + db_path + ";";
 
 // ***********************
 // 実行 SQL
