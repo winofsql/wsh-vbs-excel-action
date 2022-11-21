@@ -88,6 +88,8 @@ Next
 
 Wscript.Echo Query
 
+Wscript.Echo "update 社員マスタ set 生年月日 = 生年月日 + 社員コード;"
+
 ' create table [社員マスタ] (
 ' 	[社員コード] VARCHAR(4)
 ' 	,[氏名] VARCHAR(50)
