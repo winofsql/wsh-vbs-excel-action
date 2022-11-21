@@ -1,5 +1,19 @@
 ' ***********************************************************
 ' 処理開始
+' create table [社員マスタ] (
+' 	[社員コード] VARCHAR(4)
+' 	,[氏名] VARCHAR(50)
+' 	,[フリガナ] VARCHAR(50)
+' 	,[所属] VARCHAR(4)
+' 	,[性別] INT
+' 	,[作成日] DATETIME
+' 	,[更新日] DATETIME
+' 	,[給与] INT
+' 	,[手当] INT
+' 	,[管理者] VARCHAR(4)
+' 	,[生年月日] DATETIME
+' 	,primary key([社員コード])
+' )
 ' ***********************************************************
 
 nMax = 50
@@ -89,21 +103,6 @@ Next
 Wscript.Echo Query
 
 Wscript.Echo "update 社員マスタ set 生年月日 = 生年月日 + 社員コード;"
-
-' create table [社員マスタ] (
-' 	[社員コード] VARCHAR(4)
-' 	,[氏名] VARCHAR(50)
-' 	,[フリガナ] VARCHAR(50)
-' 	,[所属] VARCHAR(4)
-' 	,[性別] INT
-' 	,[作成日] DATETIME
-' 	,[更新日] DATETIME
-' 	,[給与] INT
-' 	,[手当] INT
-' 	,[管理者] VARCHAR(4)
-' 	,[生年月日] DATETIME
-' 	,primary key([社員コード])
-' )
 
 ' ************************************************
 ' 指定範囲の整数の乱数を取得
