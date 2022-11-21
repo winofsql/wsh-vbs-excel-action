@@ -80,7 +80,7 @@ For i = 1 to nMax
 	else
 		Query = Query & "," & Ss( Fzero( SameRandom( 1, 5 ) , 4 ) )
 	end if
-	Query = Query & ",'2000/01/01')"
+	Query = Query & ",'2000/01/01');"
 
 	Wscript.Echo strNo & " " & strName & "(" & strKana & ")"
 
