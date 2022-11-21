@@ -102,7 +102,7 @@ Next
 
 Wscript.Echo Query
 
-Wscript.Echo "update 社員マスタ set 生年月日 = 生年月日 + 社員コード;"
+Wscript.Echo "update 社員マスタ set 生年月日 = 生年月日 + 社員コード - 1;"
 
 ' ************************************************
 ' 指定範囲の整数の乱数を取得
