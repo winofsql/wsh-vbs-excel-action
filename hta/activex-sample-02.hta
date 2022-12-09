@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>Activex Sample</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<style>
+* {
+	font-family: "メイリオ";
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+// 初期画面の表示位置と大きさの設定
+var w = screen.width - 400;
+var h = screen.height - 200;
+top.resizeTo( w, h );
+top.moveTo((screen.width-w)/2, (screen.height-h)/2 );
+
+// Windows のクラスの作成
+var WshShell = new ActiveXObject("WScript.Shell");
+
+// 入力文字列
+var text;
+
+// ***********************
+// jQuery イベント処理
+// ***********************
+$(function(){
+
+	$("#btn").on("click", function(){
+
+		text = $("#text").val();
+		// ***********************************************************
+		// 使用するパラメータ
+		// ***********************************************************
+		var strFrom = "わたしです <wsh@ドメイン>";
+
+		var strTo = "あなたです <宛先>";
+
+		var strServer = "smtp.lolipop.jp";
+
+		var nPort = 465;
+		var strUser = "wsh@ドメイン";
+		var strPass = text;
+
+		// ***********************************************************
+		// オブジェクト
+		// ***********************************************************
+		var Cdo = new ActiveXObject("CDO.Message")
+
+		// ***********************************************************
+		// 自分のアドレスと宛先
+		// ***********************************************************
+		Cdo.From = strFrom
+		Cdo.To = strTo
+
+		// ***********************************************************
+		// 件名と本文
+		// ***********************************************************
+		Cdo.Subject	= "件名の文字列 / " + new Date();
+		Cdo.Textbody = "テキスト本文\r\n改行は \\r\\n";
+
+		// ***********************************************************
+		// CC BCC HTMLメール( CC BCC はどちらか片方  )
+		// ※ 両方指定すると CC
+		// ***********************************************************
+		// Cdo.Cc = "メールアドレス1,メールアドレス2"
+		//Cdo.Bcc = "メールアドレス3,メールアドレス4"
+		// Cdo.Htmlbody = "<img src=\"https://winofsql.jp/image/winofsql.png\">"
+
+		// ***********************************************************
+		// ファイル添付あり
+		// ***********************************************************
+		Cdo.AddAttachment( "C:\\Users\\lightbox\\Pictures\\1351841.jpg" )
+
+		// ***********************************************************
+		// 設定
+		// ***********************************************************
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendusing") = 2
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpserver") = strServer
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpserverport") = nPort
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpusessl") = true
+
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate") = 1
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendusername") = strUser
+		Cdo.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendpassword") = strPass
+
+		// ***********************************************************
+		// 設定の反映
+		// ***********************************************************
+		Cdo.Configuration.Fields.Update()
+
+		// ***********************************************************
+		// 送信
+		// ***********************************************************
+		var strMessage
+		try {
+			Cdo.Send()
+			strMessage = "送信が完了しました"
+		}
+		catch ( error ) {
+			strMessage = error.message;
+		}
+
+		alert( strMessage );
+
+
+	});
+
+});
+
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">入力テーブルをテーブル表示</h5>
+<div id="content" class="m-4">
+
+	<input type="password" id="text" class="form-control">
+	<input type="button" value="実行" id="btn" class="mt-4 form-control btn btn-secondary" style="width:200px;">
+
+</div>
+</body>
+</html>

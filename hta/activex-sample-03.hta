@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<title>Activex Sample</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<style>
+* {
+	font-family: "メイリオ";
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+// 初期画面の表示位置と大きさの設定
+var w = screen.width - 400;
+var h = screen.height - 200;
+top.resizeTo( w, h );
+top.moveTo((screen.width-w)/2, (screen.height-h)/2 );
+
+// Windows のクラスの作成
+var http = new ActiveXObject("Msxml2.ServerXMLHTTP");
+var stream = new ActiveXObject("ADODB.Stream");
+
+// 入力文字列
+var url;
+
+// ***********************
+// jQuery イベント処理
+// ***********************
+$(function(){
+
+	$("#btn").on("click", function(){
+
+		url = $("#url").val();
+		http.open("GET", url, false );
+		http.send();
+
+		stream.Open();
+		stream.Type = 1 // バイナリ
+		// 戻されたバイナリをファイルとしてストリームに書き込み
+		stream.Write( http.responseBody );
+		// ファイルとして保存
+		stream.SaveToFile( "winofsql.jpg", 2 );
+		stream.Close
+
+	});
+
+});
+
+</script>
+</head>
+<body>
+<h5 class="alert alert-primary">入力テーブルをテーブル表示</h5>
+<div id="content" class="m-4">
+
+	<input type="text" id="url" class="form-control" value="">
+	<input type="button" value="実行" id="btn" class="mt-4 form-control btn btn-secondary" style="width:200px;">
+
+</div>
+</body>
+</html>
